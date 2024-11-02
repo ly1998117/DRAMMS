@@ -36,4 +36,5 @@ for direction in ['z', 'x', 'y']:
 df = np.stack(df, axis=-1)
 nib.save(nib.Nifti1Image(df, np.eye(4)), 'DF.nii.gz')
 ```
-## If it helps you, please consider giving this repository a star.
+## Other
+If it helps you, please consider giving this repository a star.
