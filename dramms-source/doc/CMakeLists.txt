@@ -91,7 +91,7 @@ basis_add_doc (
 # comprehensive manual
 # ============================================================================
 
-if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/index.rst")
+if (EXISTS "index.rst")
 
   basis_add_doc (
     softwaremanual   ${MANUAL_OPTIONS}

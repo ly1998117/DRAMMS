@@ -22,7 +22,7 @@ project (DRAMMSBundle)
 # ============================================================================
 
 if (NOT BUNDLE_SOURCE_DIR)
-  set (BUNDLE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+  set (BUNDLE_SOURCE_DIR ".")
 endif ()
 
 # BASIS
@@ -56,7 +56,7 @@ endif ()
 set (FastPD_MD5 e8b7aa455bad254fe16434f1c601b66e)
 # DRAMMS
 if (NOT DRAMMS_SOURCE_DIR)
-  set (DRAMMS_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/..")
+  set (DRAMMS_SOURCE_DIR "../..")
 endif ()
 
 # ============================================================================
@@ -97,7 +97,7 @@ if (NOT CMAKE_BUILD_TYPE)
   set_property (CACHE CMAKE_BUILD_TYPE PROPERTY VALUE "Release")
 endif ()
 
-set (CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
+set (CMAKE_MODULE_PATH ".")
 
 if (NOT BUNDLE_PROJECTS)
   set (BUNDLE_PROJECTS) # tells BASIS which other packages belong to the same build
@@ -148,7 +148,7 @@ else ()
     endif ()
     ExternalProject_Add (
       BASIS
-      PREFIX           bundle
+      PREFIX bundle
       URL              "${BASIS_URL}"
       URL_MD5          ${BASIS_MD5}
       CMAKE_CACHE_ARGS "-DBUNDLE_NAME:INTERNAL=${BUNDLE_NAME}"
@@ -198,13 +198,13 @@ if (BUNDLE_EXTERNAL_PROJECTS)
   # in particular the Find<Pkg>.cmake modules coming with BASIS are required
   # to find any already installed packages
   ExternalProject_Add (
-    bundle
+          bundle
     DEPENDS          ${BUNDLE_DEPENDS}
-    DOWNLOAD_COMMAND "${CMAKE_COMMAND}" -E copy "${CMAKE_CURRENT_LIST_FILE}" CMakeLists.txt
-    PREFIX           bundle
-    DOWNLOAD_DIR     bundle
-    SOURCE_DIR       bundle
-    BINARY_DIR       bundle
+    DOWNLOAD_COMMAND "${CMAKE_COMMAND}" -E copy "CMakeLists.txt" CMakeLists.txt
+    PREFIX bundle
+    DOWNLOAD_DIR bundle
+    SOURCE_DIR bundle
+    BINARY_DIR bundle
     STAMP_DIR        bundle/tmp
     TMP_DIR          bundle/tmp
     CMAKE_CACHE_ARGS "-DBUNDLE_PROJECTS:STRING=${BUNDLE_PROJECTS}"

@@ -33,3 +33,20 @@ for direction in ['z', 'x', 'y']:
 df = np.stack(df, axis=-1)
 nib.save(nib.Nifti1Image(df, np.eye(4)), 'DF.nii.gz')
 ```
+The combined SDF will be saved as `DF.nii.gz`. For using the SDF, you can follow this file: `EXAMPLES/RegistrationTorch.ipynb`.
+Part of the code is shown below:
+```python
+def generate_grid(imgshape):
+    grid = np.mgrid[0:imgshape[0], 0:imgshape[1], 0:imgshape[2]].transpose(1, 2, 3, 0)[..., [2, 1, 0]]
+    grid = torch.from_numpy(grid).unsqueeze(0).float()
+    return grid
+    
+def transform(x, flow):
+    grid = generate_grid(flow.shape[1:])
+    grid = grid + flow
+    grid[0, :, :, :, 0] = (grid[0, :, :, :, 0] - ((grid.size()[3] - 1) / 2)) / (grid.size()[3] - 1) * 2
+    grid[0, :, :, :, 1] = (grid[0, :, :, :, 1] - ((grid.size()[2] - 1) / 2)) / (grid.size()[2] - 1) * 2
+    grid[0, :, :, :, 2] = (grid[0, :, :, :, 2] - ((grid.size()[1] - 1) / 2)) / (grid.size()[1] - 1) * 2
+    x = torch.nn.functional.grid_sample(x, grid, mode='bilinear', align_corners=True)
+    return x
+```

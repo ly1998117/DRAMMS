@@ -73,8 +73,8 @@ endif ()
 # public tests
 # ============================================================================
 
-set (INPUT_DIR    "${CMAKE_CURRENT_SOURCE_DIR}/input")
-set (BASELINE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/baseline")
+set (INPUT_DIR    "input")
+set (BASELINE_DIR "baseline")
 
 if (APPLE)
   # these very liberal tolerances seem to be required due to the
